@@ -14,7 +14,6 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -96,7 +95,7 @@ export default function DashboardLayout({
             </div>
           </div>
           <div className="flex items-center gap-2 mt-2">
-            <ThemeToggle />
+            
             <Button
               variant="ghost"
               size="sm"
@@ -121,7 +120,7 @@ export default function DashboardLayout({
               <span className="font-bold">SmartFlash</span>
             </Link>
             <div className="flex items-center gap-2">
-              <ThemeToggle />
+              
               <Button
                 variant="ghost"
                 size="icon"

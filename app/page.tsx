@@ -14,7 +14,6 @@ import {
   Layers,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/shared/theme-toggle";
 import Link from "next/link";
 
 const fadeUp = {
@@ -94,7 +93,7 @@ export default function LandingPage() {
             <span className="text-lg font-bold">SmartFlash AI</span>
           </Link>
           <div className="flex items-center gap-3">
-            <ThemeToggle />
+            
             <Link href="/login">
               <Button variant="ghost" size="sm">
                 Log in
