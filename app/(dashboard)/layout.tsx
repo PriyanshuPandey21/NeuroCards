@@ -58,7 +58,7 @@ export default function DashboardLayout({
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-chart-1 to-chart-2 flex items-center justify-center">
               <Zap className="h-4 w-4 text-white" />
             </div>
-            <span className="text-lg font-bold">SmartFlash AI</span>
+            <span className="text-lg font-bold">Neuroocards</span>
           </Link>
         </div>
 
@@ -69,11 +69,10 @@ export default function DashboardLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  isActive
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${isActive
                     ? "bg-chart-1/10 text-chart-1"
                     : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                }`}
+                  }`}
               >
                 <item.icon className="h-4 w-4" />
                 {item.label}
@@ -95,7 +94,7 @@ export default function DashboardLayout({
             </div>
           </div>
           <div className="flex items-center gap-2 mt-2">
-            
+
             <Button
               variant="ghost"
               size="sm"
@@ -120,7 +119,7 @@ export default function DashboardLayout({
               <span className="font-bold">SmartFlash</span>
             </Link>
             <div className="flex items-center gap-2">
-              
+
               <Button
                 variant="ghost"
                 size="icon"
@@ -159,11 +158,10 @@ export default function DashboardLayout({
                         key={item.href}
                         href={item.href}
                         onClick={() => setSidebarOpen(false)}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                          isActive
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${isActive
                             ? "bg-chart-1/10 text-chart-1"
                             : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                        }`}
+                          }`}
                       >
                         <item.icon className="h-4 w-4" />
                         {item.label}

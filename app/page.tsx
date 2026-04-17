@@ -90,10 +90,10 @@ export default function LandingPage() {
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-chart-1 to-chart-2 flex items-center justify-center">
               <Zap className="h-4 w-4 text-white" />
             </div>
-            <span className="text-lg font-bold">SmartFlash AI</span>
+            <span className="text-lg font-bold">Neuroocards</span>
           </Link>
           <div className="flex items-center gap-3">
-            
+
             <Link href="/login">
               <Button variant="ghost" size="sm">
                 Log in
@@ -179,11 +179,10 @@ export default function LandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 + i * 0.15 }}
                   >
-                    <div className={`inline-flex px-2 py-0.5 rounded-md text-xs font-medium mb-3 ${
-                      card.d === "easy" ? "bg-emerald-500/10 text-emerald-500" :
-                      card.d === "medium" ? "bg-amber-500/10 text-amber-500" :
-                      "bg-red-500/10 text-red-500"
-                    }`}>
+                    <div className={`inline-flex px-2 py-0.5 rounded-md text-xs font-medium mb-3 ${card.d === "easy" ? "bg-emerald-500/10 text-emerald-500" :
+                        card.d === "medium" ? "bg-amber-500/10 text-amber-500" :
+                          "bg-red-500/10 text-red-500"
+                      }`}>
                       {card.d}
                     </div>
                     <p className="font-medium text-sm mb-2">{card.q}</p>
@@ -310,10 +309,10 @@ export default function LandingPage() {
             <div className="h-6 w-6 rounded-md bg-gradient-to-br from-chart-1 to-chart-2 flex items-center justify-center">
               <Zap className="h-3 w-3 text-white" />
             </div>
-            <span className="text-sm font-semibold">SmartFlash AI</span>
+            <span className="text-sm font-semibold">Neuroocards</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} SmartFlash AI. Built with ❤️ for learners.
+            © {new Date().getFullYear()} Neuroocards. Built with ❤️ for learners.
           </p>
         </div>
       </footer>

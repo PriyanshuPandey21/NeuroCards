@@ -65,7 +65,7 @@ export default function LoginPage() {
             </Link>
             <CardTitle className="text-2xl">Welcome back</CardTitle>
             <CardDescription>
-              Sign in to your SmartFlash AI account
+              Sign in to your Neuroocards account
             </CardDescription>
           </CardHeader>
           <CardContent>

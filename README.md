@@ -1,4 +1,4 @@
-# SmartFlash AI ⚡
+# Neuroocards ⚡
 
 Transform PDFs into intelligent flashcards with AI-powered generation and spaced repetition learning.
 
