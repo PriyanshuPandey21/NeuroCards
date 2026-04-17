@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NeuroCards ai — Transform PDFs into Smart Flashcards",
+  title: "NeuroCards.ai — Transform PDFs into Smart Flashcards",
   description:
     "Upload any PDF and instantly generate intelligent flashcards with AI. Master any subject with spaced repetition learning.",
   keywords: ["flashcards", "AI", "PDF", "study", "learning", "spaced repetition"],

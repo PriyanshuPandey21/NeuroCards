@@ -61,7 +61,7 @@ export default function LoginPage() {
             </Link>
             <CardTitle className="text-2xl">Welcome back</CardTitle>
             <CardDescription>
-              Sign in to your NeuroCards ai account
+              Sign in to your NeuroCards.ai account
             </CardDescription>
           </CardHeader>
           <CardContent>

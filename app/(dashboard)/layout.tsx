@@ -58,7 +58,7 @@ export default function DashboardLayout({
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-chart-1 to-chart-2 flex items-center justify-center">
               <Zap className="h-4 w-4 text-white" />
             </div>
-            <span className="text-lg font-bold">NeuroCards ai</span>
+            <span className="text-lg font-bold">NeuroCards.ai</span>
           </Link>
         </div>
 

@@ -22,6 +22,27 @@ const fadeUp = {
   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
 };
 
+const fadeLeft = {
+  initial: { opacity: 0, x: -50 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+};
+
+const fadeRight = {
+  initial: { opacity: 0, x: 50 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+};
+
+const scaleUp = {
+  initial: { opacity: 0, scale: 0.95, y: 30 },
+  whileInView: { opacity: 1, scale: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+};
+
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -40,7 +61,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <Zap className="h-6 w-6 text-chart-5 transition-transform group-hover:scale-110" />
-            <span className="text-xl font-bold tracking-tight">NeuroCards</span>
+            <span className="text-xl font-bold tracking-tight">NeuroCards.ai</span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium">
             <Link href="#features" className="hover:text-chart-5 transition-colors">Features</Link>
@@ -75,8 +96,8 @@ export default function LandingPage() {
         </section>
 
         {/* 3 Bento Pristine Cards (Image 2) */}
-        <section id="features" className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
-          <motion.div variants={fadeUp} initial="initial" whileInView="whileInView" className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col items-center text-center transition-transform hover:-translate-y-1">
+        <section id="features" className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 overflow-hidden">
+          <motion.div variants={fadeLeft} initial="initial" whileInView="whileInView" className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col items-center text-center transition-transform hover:-translate-y-1">
             <div className="w-full h-48 bg-slate-50/80 rounded-2xl mb-8 flex items-center justify-center border border-slate-100/50 relative overflow-hidden">
               {/* Mockup SVG Abstract */}
               <div className="absolute inset-x-4 top-4 bottom-0 bg-white rounded-t-xl shadow-lg border border-slate-200 border-b-0 p-4">
@@ -114,7 +135,7 @@ export default function LandingPage() {
             <p className="text-muted-foreground leading-relaxed">Keep tabs on your study progress, master targets, and upcoming reviews with dashboards you can customize to fit your needs.</p>
           </motion.div>
 
-          <motion.div variants={fadeUp} initial="initial" whileInView="whileInView" transition={{ delay: 0.2 }} className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col items-center text-center transition-transform hover:-translate-y-1">
+          <motion.div variants={fadeRight} initial="initial" whileInView="whileInView" transition={{ delay: 0.1 }} className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col items-center text-center transition-transform hover:-translate-y-1">
             <div className="w-full h-48 bg-slate-50/80 rounded-2xl mb-8 flex items-center justify-center border border-slate-100/50 relative overflow-hidden">
                <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative w-32 h-32">
@@ -148,7 +169,7 @@ export default function LandingPage() {
         <section className="space-y-8 mb-32">
           
           {/* Top block (Blue-ish) */}
-          <motion.div variants={fadeUp} initial="initial" whileInView="whileInView" className="bg-[#f2f7ff] rounded-[2.5rem] w-full min-h-[400px] flex flex-col lg:flex-row items-center justify-between p-12 lg:p-20 relative overflow-hidden">
+          <motion.div variants={fadeLeft} initial="initial" whileInView="whileInView" className="bg-[#f2f7ff] rounded-[2.5rem] w-full min-h-[400px] flex flex-col lg:flex-row items-center justify-between p-12 lg:p-20 relative overflow-hidden">
             <div className="lg:w-1/2 z-10 space-y-6 text-center lg:text-left mb-12 lg:mb-0">
                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm mb-2 text-chart-5">
                  <Upload className="h-6 w-6" />
@@ -184,7 +205,7 @@ export default function LandingPage() {
           </motion.div>
 
           {/* Bottom block (Purple/Pink-ish) */}
-          <motion.div variants={fadeUp} initial="initial" whileInView="whileInView" className="bg-[#fcf5ff] rounded-[2.5rem] w-full min-h-[400px] flex flex-col lg:flex-row items-center justify-between p-12 lg:p-20 relative overflow-hidden">
+          <motion.div variants={fadeRight} initial="initial" whileInView="whileInView" className="bg-[#fcf5ff] rounded-[2.5rem] w-full min-h-[400px] flex flex-col lg:flex-row items-center justify-between p-12 lg:p-20 relative overflow-hidden">
             <div className="lg:w-1/2 z-10 space-y-6 text-center lg:text-left mb-12 lg:mb-0">
                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm mb-2 text-chart-2">
                  <BrainCircuit className="h-6 w-6" />
@@ -249,11 +270,11 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             {[
-              { name: "James L.", desc: "Med student", comment: "NeuroCards streamlines this process unlike anything else out there. It allows you to study while facilitating memorization without breaking flow. It's a priceless superpower." },
+              { name: "James L.", desc: "Med student", comment: "NeuroCards.ai streamlines this process unlike anything else out there. It allows you to study while facilitating memorization without breaking flow. It's a priceless superpower." },
               { name: "Danny G.", desc: "CS student", comment: "This is like a hardcore brain hack, except when you get hopelessly addicted to it your life is more organized and you're demonstrably smarter." },
-              { name: "Savannah F.", desc: "Bio undergrad", comment: "NeuroCards has quickly become one of my favorite products of all time. Super satisfying to run through flashcards instead of dreading them. Works like magic 🪄" }
+              { name: "Savannah F.", desc: "Bio undergrad", comment: "NeuroCards.ai has quickly become one of my favorite products of all time. Super satisfying to run through flashcards instead of dreading them. Works like magic 🪄" }
             ].map((t, i) => (
-              <motion.div key={i} variants={fadeUp} initial="initial" whileInView="whileInView" transition={{ delay: i * 0.1 }} className="bg-white border text-left border-slate-100 shadow-sm p-6 rounded-2xl hover:shadow-md transition">
+              <motion.div key={i} variants={i === 0 ? fadeLeft : i === 1 ? fadeUp : fadeRight} initial="initial" whileInView="whileInView" transition={{ delay: i * 0.1 }} className="bg-white border text-left border-slate-100 shadow-sm p-6 rounded-2xl hover:shadow-md transition overflow-hidden">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="h-12 w-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-400">
                      {t.name[0]}
@@ -278,7 +299,7 @@ export default function LandingPage() {
             <div className="col-span-2">
               <div className="flex items-center gap-2 mb-4">
                  <Zap className="h-6 w-6 text-chart-5" />
-                 <span className="font-bold text-2xl tracking-tight">NeuroCards</span>
+                 <span className="font-bold text-2xl tracking-tight">NeuroCards.ai</span>
               </div>
               <p className="text-slate-500 text-sm max-w-sm mb-6 leading-relaxed">
                 A college project designed to transform the way students study. Upload PDFs, generate AI flashcards, and master your subjects with minimal effort.
@@ -308,7 +329,7 @@ export default function LandingPage() {
           </div>
           
           <div className="border-t border-slate-200 pt-8 flex text-center flex-col items-center justify-center text-sm font-semibold text-slate-400">
-             <span>© {new Date().getFullYear()} NeuroCards. A college project.</span>
+             <span>© {new Date().getFullYear()} NeuroCards.ai. A college project.</span>
           </div>
         </div>
       </footer>
