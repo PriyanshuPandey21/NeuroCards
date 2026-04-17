@@ -17,11 +17,11 @@ export interface GenerationResult {
   summary: string;
 }
 
-const promptTemplate = (title: string, text: string) => `You are an expert educational content creator. Generate comprehensive, high-quality flashcards for active recall learning.
+const promptTemplate = (title: string, text: string, cardCount: number = 15) => `You are an expert educational content creator. Generate comprehensive, high-quality flashcards for active recall learning.
 
 Generate flashcards from the following study material titled "${title}".
 
-Create a diverse set of 15-25 flashcards covering:
+Create a diverse set of EXACTLY ${cardCount} flashcards covering:
 - **Definitions**: Key terms and their meanings
 - **Concepts**: Core ideas and principles  
 - **Application**: How to apply concepts
@@ -68,7 +68,7 @@ function parseAIResponse(content: string): GenerationResult {
   };
 }
 
-async function generateWithGemini(text: string, title: string): Promise<GenerationResult> {
+async function generateWithGemini(text: string, title: string, cardCount: number = 15): Promise<GenerationResult> {
   if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY missing");
   
   if (!_genAI) {
@@ -79,7 +79,7 @@ async function generateWithGemini(text: string, title: string): Promise<Generati
   const maxChars = 100000;
   const truncatedText = text.length > maxChars ? text.slice(0, maxChars) : text;
   
-  const prompt = promptTemplate(title, truncatedText);
+  const prompt = promptTemplate(title, truncatedText, cardCount);
   const result = await model.generateContent(prompt);
   const response = await result.response;
   const content = response.text() || "";
@@ -87,7 +87,7 @@ async function generateWithGemini(text: string, title: string): Promise<Generati
   return parseAIResponse(content);
 }
 
-async function generateWithOpenAI(text: string, title: string): Promise<GenerationResult> {
+async function generateWithOpenAI(text: string, title: string, cardCount: number = 15): Promise<GenerationResult> {
   if (!process.env.OPENAI_API_KEY) throw new Error("OPENAI_API_KEY missing");
   
   if (!_openai) {
@@ -106,7 +106,7 @@ async function generateWithOpenAI(text: string, title: string): Promise<Generati
       },
       {
         role: "user",
-        content: promptTemplate(title, truncatedText),
+        content: promptTemplate(title, truncatedText, cardCount),
       },
     ],
     temperature: 0.7,
@@ -119,12 +119,13 @@ async function generateWithOpenAI(text: string, title: string): Promise<Generati
 
 export async function generateFlashcardsFromText(
   text: string,
-  title: string
+  title: string,
+  cardCount: number = 15
 ): Promise<GenerationResult> {
   // First attempt: Gemini
   try {
     console.log("Attempting flashcard generation with Gemini...");
-    return await generateWithGemini(text, title);
+    return await generateWithGemini(text, title, cardCount);
   } catch (error) {
     console.error("Gemini AI failed, falling back to OpenAI...");
     console.error(error);
@@ -132,7 +133,7 @@ export async function generateFlashcardsFromText(
     // Second attempt: Fallback to OpenAI
     try {
       console.log("Attempting flashcard generation with OpenAI...");
-      return await generateWithOpenAI(text, title);
+      return await generateWithOpenAI(text, title, cardCount);
     } catch (fallbackError) {
       console.error("OpenAI Fallback failed:");
       console.error(fallbackError);

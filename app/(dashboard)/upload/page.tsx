@@ -43,6 +43,7 @@ export default function UploadPage() {
   const { toast } = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
+  const [cardCount, setCardCount] = useState<number>(15);
   const [stage, setStage] = useState<UploadStage>("idle");
   const [dragActive, setDragActive] = useState(false);
   const [deckId, setDeckId] = useState<string | null>(null);
@@ -114,7 +115,11 @@ export default function UploadPage() {
       const genRes = await fetch("/api/generate-flashcards", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, title: docTitle || title.trim() }),
+        body: JSON.stringify({ 
+          text, 
+          title: docTitle || title.trim(),
+          cardCount 
+        }),
       });
 
       if (!genRes.ok) {
@@ -122,10 +127,10 @@ export default function UploadPage() {
         throw new Error(errData.error || "Generation failed");
       }
 
-      const { deckId: newDeckId, cardCount } = await genRes.json();
+      const { deckId: newDeckId, cardCount: generatedCardCount } = await genRes.json();
       setDeckId(newDeckId);
       setStage("complete");
-      toast(`Generated ${cardCount} flashcards!`, "success");
+      toast(`Generated ${generatedCardCount} flashcards!`, "success");
     } catch (err) {
       setStage("error");
       toast(err instanceof Error ? err.message : "Something went wrong", "error");
@@ -161,15 +166,53 @@ export default function UploadPage() {
       >
         <Card>
           <CardContent className="p-6 space-y-6">
-            {/* Title Input */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Deck Title</label>
-              <Input
-                placeholder="e.g. Biology Chapter 5"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                disabled={stage !== "idle"}
-              />
+            {/* Settings Inputs */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-sm font-medium">Deck Title</label>
+                <Input
+                  placeholder="e.g. Biology Chapter 5"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  disabled={stage !== "idle"}
+                />
+              </div>
+              <div className="space-y-2 md:col-span-1">
+                <label className="text-sm font-medium">Card Count</label>
+                <div className="flex items-center gap-2">
+                  {[8, 12, 15].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => setCardCount(preset)}
+                      className={`flex-1 h-10 rounded-md border text-sm font-medium transition-colors ${
+                        cardCount === preset 
+                          ? "border-chart-5 bg-chart-5/10 text-chart-5" 
+                          : "border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                      }`}
+                      disabled={stage !== "idle"}
+                    >
+                      {preset}
+                    </button>
+                  ))}
+                  <div className="relative flex-1 min-w-[70px]">
+                    <Input
+                      type="number"
+                      min="5"
+                      max="25"
+                      value={cardCount}
+                      onChange={(e) => setCardCount(parseInt(e.target.value) || 15)}
+                      disabled={stage !== "idle"}
+                      className={`w-full text-center px-1 pr-5 ${
+                        ![8, 12, 15].includes(cardCount) ? "border-chart-5 ring-1 ring-chart-5 bg-chart-5/5 text-chart-5" : ""
+                      }`}
+                    />
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-muted-foreground font-medium pointer-events-none opacity-40">
+                      ✎
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Drop Zone */}

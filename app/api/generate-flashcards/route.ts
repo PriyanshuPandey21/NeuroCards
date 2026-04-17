@@ -10,14 +10,16 @@ export async function POST(req: NextRequest) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { text, title } = await req.json();
+    const { text, title, cardCount } = await req.json();
 
     if (!text || text.trim().length < 50) {
       return Response.json({ error: "Not enough text to generate flashcards" }, { status: 400 });
     }
 
+    const parsedCount = cardCount ? Math.min(Math.max(parseInt(cardCount, 10), 1), 25) : 15;
+
     // Generate flashcards using AI
-    const result = await generateFlashcardsFromText(text, title || "Untitled");
+    const result = await generateFlashcardsFromText(text, title || "Untitled", parsedCount);
 
     // Create deck with flashcards in database
     const deck = await prisma.deck.create({

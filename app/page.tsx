@@ -1,321 +1,318 @@
 "use client";
-
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Zap,
-  Brain,
   Upload,
-  BookOpen,
   BarChart3,
   Sparkles,
   ArrowRight,
-  CheckCircle,
   FileText,
-  Layers,
+  BrainCircuit,
+  GraduationCap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
 };
 
-const stagger = {
-  animate: { transition: { staggerChildren: 0.1 } },
-};
-
-const features = [
-  {
-    icon: Upload,
-    title: "PDF Upload",
-    description: "Drag & drop any PDF — study notes, textbooks, slides — and we'll extract the content instantly.",
-  },
-  {
-    icon: Brain,
-    title: "AI-Powered Generation",
-    description: "GPT-4o generates diverse flashcard types: concepts, definitions, true/false, fill-in-the-blank.",
-  },
-  {
-    icon: Sparkles,
-    title: "Spaced Repetition",
-    description: "SM-2 algorithm schedules reviews so you remember everything with minimal effort.",
-  },
-  {
-    icon: BarChart3,
-    title: "Progress Tracking",
-    description: "Dashboard with mastery stats, study streaks, and daily review targets.",
-  },
-  {
-    icon: Layers,
-    title: "Deck Management",
-    description: "Organize, rename, edit, search, and export your flashcard decks effortlessly.",
-  },
-  {
-    icon: BookOpen,
-    title: "Smart Study Mode",
-    description: "Beautiful card flip animations, keyboard shortcuts, and difficulty rating for each card.",
-  },
-];
-
-const steps = [
-  {
-    number: "01",
-    title: "Upload Your PDF",
-    description: "Drop any study material — the AI handles the rest.",
-    icon: FileText,
-  },
-  {
-    number: "02",
-    title: "AI Generates Cards",
-    description: "High-quality flashcards covering every key concept.",
-    icon: Sparkles,
-  },
-  {
-    number: "03",
-    title: "Study & Master",
-    description: "Flip, rate, and let spaced repetition do the magic.",
-    icon: Brain,
-  },
-];
-
 export default function LandingPage() {
-  return (
-    <div className="min-h-screen">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-chart-1 to-chart-2 flex items-center justify-center">
-              <Zap className="h-4 w-4 text-white" />
-            </div>
-            <span className="text-lg font-bold">NeuroCards ai</span>
-          </Link>
-          <div className="flex items-center gap-3">
+  const [isScrolled, setIsScrolled] = useState(false);
 
-            <Link href="/login">
-              <Button variant="ghost" size="sm">
-                Log in
-              </Button>
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-chart-1 selection:text-white">
+      {/* Absolute top minimal nav */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm" : "bg-transparent py-2"}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 group">
+            <Zap className="h-6 w-6 text-chart-5 transition-transform group-hover:scale-110" />
+            <span className="text-xl font-bold tracking-tight">NeuroCards</span>
+          </Link>
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+            <Link href="#features" className="hover:text-chart-5 transition-colors">Features</Link>
+            <Link href="#testimonials" className="hover:text-chart-5 transition-colors">Testimonials</Link>
+          </div>
+          <div className="flex items-center gap-4">
+            <Link href="/login" className="text-sm font-medium hover:text-chart-5 transition-colors">
+              Log in
             </Link>
             <Link href="/login">
-              <Button variant="gradient" size="sm">
-                Get Started
+              <Button className="bg-chart-5 hover:bg-chart-5/90 text-white rounded-xl shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5 px-6">
+                Go to app
               </Button>
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        {/* Background effects */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "3s" }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
-        </div>
-
-        <motion.div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-          initial="initial"
-          animate="animate"
-          variants={stagger}
-        >
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-muted-foreground mb-8">
-            <Sparkles className="h-3.5 w-3.5 text-chart-1" />
-            Powered by GPT-4o AI
-          </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6"
+      {/* Main Container mirroring RemNote padding */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32">
+        
+        {/* Massive Highlight Title Section */}
+        <section className="py-16 text-center max-w-4xl mx-auto">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl sm:text-5xl lg:text-5xl font-extrabold tracking-tight leading-[1.2]"
           >
-            Transform PDFs into
-            <br />
-            <span className="gradient-text">Smart Flashcards</span>
+            All the tools you need for <span className="text-chart-5">efficient studying.</span>
           </motion.h1>
+        </section>
 
-          <motion.p
-            variants={fadeUp}
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
-          >
-            Upload any study material and let AI generate high-quality flashcards.
-            Master any subject with spaced repetition learning.
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/login">
-              <Button variant="gradient" size="xl" className="w-full sm:w-auto">
-                Start Learning Free
-                <ArrowRight className="h-5 w-5" />
-              </Button>
-            </Link>
-            <Link href="#features">
-              <Button variant="outline" size="xl" className="w-full sm:w-auto">
-                See How It Works
-              </Button>
-            </Link>
-          </motion.div>
-
-          {/* Hero visual */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-16 relative max-w-4xl mx-auto"
-          >
-            <div className="rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-8 shadow-2xl shadow-chart-1/10">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Simulated flashcard previews */}
-                {[
-                  { q: "What is photosynthesis?", a: "The process by which plants convert light energy...", d: "easy" },
-                  { q: "Define mitochondria", a: "The powerhouse of the cell that generates ATP...", d: "medium" },
-                  { q: "Newton's Third Law?", a: "Every action has an equal and opposite reaction.", d: "hard" },
-                ].map((card, i) => (
-                  <motion.div
-                    key={i}
-                    className="card-hover rounded-xl border border-border bg-card p-5 text-left"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 + i * 0.15 }}
-                  >
-                    <div className={`inline-flex px-2 py-0.5 rounded-md text-xs font-medium mb-3 ${card.d === "easy" ? "bg-emerald-500/10 text-emerald-500" :
-                      card.d === "medium" ? "bg-amber-500/10 text-amber-500" :
-                        "bg-red-500/10 text-red-500"
-                      }`}>
-                      {card.d}
-                    </div>
-                    <p className="font-medium text-sm mb-2">{card.q}</p>
-                    <p className="text-xs text-muted-foreground">{card.a}</p>
-                  </motion.div>
-                ))}
+        {/* 3 Bento Pristine Cards (Image 2) */}
+        <section id="features" className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+          <motion.div variants={fadeUp} initial="initial" whileInView="whileInView" className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col items-center text-center transition-transform hover:-translate-y-1">
+            <div className="w-full h-48 bg-slate-50/80 rounded-2xl mb-8 flex items-center justify-center border border-slate-100/50 relative overflow-hidden">
+              {/* Mockup SVG Abstract */}
+              <div className="absolute inset-x-4 top-4 bottom-0 bg-white rounded-t-xl shadow-lg border border-slate-200 border-b-0 p-4">
+                <div className="flex items-center gap-2 mb-4 border-b pb-2">
+                  <FileText className="w-5 h-5 text-chart-2" />
+                  <div className="h-2 w-24 bg-slate-200 rounded-full" />
+                </div>
+                <div className="space-y-3">
+                  <div className="h-2 w-full bg-slate-100 rounded-full" />
+                  <div className="h-2 w-5/6 bg-slate-100 rounded-full" />
+                  <div className="h-2 w-4/6 bg-chart-2/20 rounded-full relative">
+                     <span className="absolute -top-3 -right-2 text-[10px] font-bold text-chart-2 bg-white px-1 shadow-sm rounded-sm">Link</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-r from-chart-1/10 via-chart-3/10 to-indigo-500/10 blur-xl" />
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="py-24 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Everything you need to <span className="gradient-text">learn smarter</span>
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              From PDF upload to mastery — a complete learning toolkit powered by AI.
-            </p>
+            <h3 className="text-2xl font-bold mb-3"><span className="text-chart-2">PDF</span> Annotation</h3>
+            <p className="text-muted-foreground leading-relaxed">Got a PDF, PowerPoint, or other document to learn from? Upload it and tie the source material to your notes.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                className="card-hover rounded-2xl border border-border bg-card p-6"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-chart-1/10 to-chart-2/10 flex items-center justify-center mb-4">
-                  <feature.icon className="h-6 w-6 text-chart-1" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Three steps to <span className="gradient-text">mastery</span>
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              From PDF to perfect recall in minutes.
-            </p>
+          <motion.div variants={fadeUp} initial="initial" whileInView="whileInView" transition={{ delay: 0.1 }} className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col items-center text-center transition-transform hover:-translate-y-1">
+            <div className="w-full h-48 bg-slate-50/80 rounded-2xl mb-8 flex items-center justify-center border border-slate-100/50 relative overflow-hidden">
+               <div className="absolute inset-x-4 top-4 bottom-0 bg-white rounded-t-xl shadow-lg border border-slate-200 border-b-0 p-4">
+                  <div className="flex justify-between items-center bg-slate-50 p-2 rounded-lg mb-2">
+                    <div className="h-2 w-16 bg-slate-200 rounded-full" />
+                    <div className="h-2 w-12 bg-chart-3/40 rounded-full" />
+                  </div>
+                  <div className="flex justify-between items-center bg-slate-50 p-2 rounded-lg mb-2">
+                    <div className="h-2 w-20 bg-slate-200 rounded-full" />
+                    <div className="h-2 w-16 bg-chart-4/40 rounded-full" />
+                  </div>
+               </div>
+            </div>
+            <h3 className="text-2xl font-bold mb-3"><span className="text-chart-3">Smart</span> Tracking</h3>
+            <p className="text-muted-foreground leading-relaxed">Keep tabs on your study progress, master targets, and upcoming reviews with dashboards you can customize to fit your needs.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                className="relative text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-              >
-                <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-chart-1 to-chart-2 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-chart-1/25">
-                  <step.icon className="h-8 w-8 text-white" />
-                </div>
-                <span className="text-5xl font-bold text-muted-foreground/20 absolute -top-2 left-1/2 -translate-x-1/2">
-                  {step.number}
-                </span>
-                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                <p className="text-muted-foreground">{step.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+          <motion.div variants={fadeUp} initial="initial" whileInView="whileInView" transition={{ delay: 0.2 }} className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col items-center text-center transition-transform hover:-translate-y-1">
+            <div className="w-full h-48 bg-slate-50/80 rounded-2xl mb-8 flex items-center justify-center border border-slate-100/50 relative overflow-hidden">
+               <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="relative w-32 h-32">
+                     <div className="absolute top-0 right-0 w-16 h-16 bg-chart-1 rounded-full opacity-20 animate-pulse" />
+                     <div className="absolute bottom-4 left-4 border border-chart-1 text-chart-1 text-xs font-bold px-2 py-1 rounded-sm bg-white">
+                       Front
+                     </div>
+                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-2">
+                       <span className="w-2 h-2 rounded-full bg-slate-300" />
+                       <span className="w-2 h-2 rounded-full bg-chart-1" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <h3 className="text-2xl font-bold mb-3">Flashcards via <span className="text-chart-1">AI</span></h3>
+            <p className="text-muted-foreground leading-relaxed">Master visual and textual content automatically. Say goodbye to manual creation and let NextGen AI extract knowledge.</p>
+          </motion.div>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="relative rounded-3xl overflow-hidden"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <div className="animated-gradient p-12 sm:p-16 text-center text-white">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to learn smarter?</h2>
-              <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
-                Join thousands of students who ace their exams with AI-powered flashcards.
-              </p>
-              <Link href="/login">
-                <Button size="xl" className="bg-white text-chart-1 hover:bg-white/90 shadow-xl">
-                  Get Started — It&apos;s Free
-                  <ArrowRight className="h-5 w-5" />
-                </Button>
-              </Link>
+        {/* Interim CTA */}
+        <section className="text-center mb-24">
+          <p className="text-lg text-muted-foreground mb-6">Ready to add an extra day to your weekend?</p>
+          <Link href="/login">
+            <Button size="xl" className="bg-chart-5 hover:bg-chart-5/90 text-white rounded-xl shadow-md text-lg px-8 h-14">
+              Join thousands of students - it&apos;s free &rarr;
+            </Button>
+          </Link>
+        </section>
+
+        {/* Section 4: Massive Split Pastel Rectangles (Image 1 style) */}
+        <section className="space-y-8 mb-32">
+          
+          {/* Top block (Blue-ish) */}
+          <motion.div variants={fadeUp} initial="initial" whileInView="whileInView" className="bg-[#f2f7ff] rounded-[2.5rem] w-full min-h-[400px] flex flex-col lg:flex-row items-center justify-between p-12 lg:p-20 relative overflow-hidden">
+            <div className="lg:w-1/2 z-10 space-y-6 text-center lg:text-left mb-12 lg:mb-0">
+               <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm mb-2 text-chart-5">
+                 <Upload className="h-6 w-6" />
+               </div>
+               <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
+                 Instantly <span className="text-chart-5">generate smart cards</span><br/>from your uploads
+               </h2>
+               <p className="text-lg text-slate-600 max-w-lg mx-auto lg:mx-0">
+                 Never waste hours copying definitions. The moment you upload your PDF, AI generates structured cards synced seamlessly to your brain.
+               </p>
+            </div>
+            <div className="lg:w-1/2 relative w-full h-[300px] lg:h-auto lg:absolute lg:right-0 lg:bottom-0 lg:top-10 flex justify-center lg:justify-end pr-0 lg:pr-10">
+               {/* Abstract Mockup Desktop + Mobile */}
+               <div className="w-[400px] h-[300px] bg-white rounded-t-xl border-t border-x border-slate-200 shadow-2xl relative flex flex-col p-4">
+                  <div className="flex gap-2 mb-4 border-b pb-2">
+                    <span className="w-3 h-3 rounded-full bg-red-400" />
+                    <span className="w-3 h-3 rounded-full bg-amber-400" />
+                    <span className="w-3 h-3 rounded-full bg-emerald-400" />
+                  </div>
+                  <div className="flex-1 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden relative">
+                     <span className="text-slate-300 font-bold text-2xl absolute opacity-30">SmartFlash Hub</span>
+                     {/* Overlapping mobile mockup */}
+                     <div className="absolute -left-4 top-10 w-[120px] h-[220px] bg-white border border-slate-200 rounded-3xl shadow-xl flex flex-col items-center pt-3 gap-2">
+                        <div className="w-10 h-1 bg-slate-200 rounded-full" />
+                        <div className="w-11/12 h-32 bg-chart-1/10 rounded-xl mt-2 flex flex-col p-2 gap-2">
+                           <div className="w-1/2 h-2 bg-chart-1/30 rounded-full" />
+                           <div className="w-full h-10 bg-white rounded-md mt-auto shadow-sm" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
           </motion.div>
-        </div>
-      </section>
 
+          {/* Bottom block (Purple/Pink-ish) */}
+          <motion.div variants={fadeUp} initial="initial" whileInView="whileInView" className="bg-[#fcf5ff] rounded-[2.5rem] w-full min-h-[400px] flex flex-col lg:flex-row items-center justify-between p-12 lg:p-20 relative overflow-hidden">
+            <div className="lg:w-1/2 z-10 space-y-6 text-center lg:text-left mb-12 lg:mb-0">
+               <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm mb-2 text-chart-2">
+                 <BrainCircuit className="h-6 w-6" />
+               </div>
+               <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
+                 <span className="text-chart-2">Unlock</span> perfect recall<br/>for your exams
+               </h2>
+               <p className="text-lg text-slate-600 max-w-lg mx-auto lg:mx-0">
+                 Spaced repetition outshines all other learning techniques. Our algorithm tracks what you forget to ensure you only study exactly what matters.
+               </p>
+               <Link href="/login" className="inline-block mt-4">
+                 <Button variant="outline" size="lg" className="rounded-xl border-slate-200 bg-white text-foreground shadow-sm hover:bg-slate-50">
+                   See Spacing Algorithm &rarr;
+                 </Button>
+               </Link>
+            </div>
+            <div className="lg:w-1/2 relative flex justify-center lg:justify-end w-full h-[300px]">
+               {/* Abstract Grid visual representing spaced repetition/flashcards */}
+               <div className="grid grid-cols-2 gap-4 absolute -right-10 top-0 w-[500px]">
+                  <div className="bg-white p-4 rounded-2xl shadow-lg border border-chart-2/10 transform rotate-[-2deg] transition hover:rotate-0">
+                    <div className="h-3 w-16 bg-chart-2/20 mb-2 rounded-full" />
+                    <div className="h-2 w-full bg-slate-100 mb-2 rounded-full" />
+                    <div className="h-2 w-3/4 bg-slate-100 mb-6 rounded-full" />
+                    <div className="flex gap-2">
+                      <div className="w-8 h-8 rounded-full bg-slate-100" />
+                      <div className="w-8 h-8 rounded-full border-2 border-chart-2 bg-chart-2/10" />
+                    </div>
+                  </div>
+                  <div className="bg-white p-4 rounded-2xl shadow-lg border border-slate-100 transform rotate-[3deg] translate-y-8">
+                    <div className="h-3 w-20 bg-emerald-400/20 mb-2 rounded-full" />
+                    <div className="h-2 w-full bg-slate-100 mb-2 rounded-full" />
+                    <div className="h-2 w-4/5 bg-slate-100 mb-6 rounded-full" />
+                    <div className="flex gap-2">
+                       <span className="text-xs font-bold text-emerald-500 px-2 py-1 bg-emerald-50 rounded-md">Mastered</span>
+                    </div>
+                  </div>
+                  <div className="bg-white p-4 rounded-2xl shadow-lg border border-slate-100 transform rotate-[-1deg] translate-y-4">
+                    <div className="h-3 w-12 bg-chart-4/20 mb-2 rounded-full" />
+                    <div className="h-2 w-full bg-slate-100 mb-2 rounded-full" />
+                   <div className="h-10 bg-slate-50 rounded-lg mt-4 border border-slate-100 flex items-center px-4">
+                     <div className="h-1 w-full bg-chart-4/50 rounded-full" />
+                   </div>
+                  </div>
+               </div>
+            </div>
+          </motion.div>
+
+        </section>
+
+        {/* Section 5: Stats and Testimonials Grid (Image 3 style) */}
+        <section id="testimonials" className="mb-24 text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-4xl font-extrabold tracking-tight mb-16">
+            Join <span className="text-chart-2">thousands of students</span><br/>getting higher grades in less time!
+          </h2>
+          
+          {/* Grayscale Tech / University simulated logos */}
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-40 grayscale mb-20">
+             <div className="flex items-center gap-2 text-2xl font-bold font-serif italic"><GraduationCap className="h-8 w-8" /> University Placeholder</div>
+             <div className="flex items-center gap-2 text-2xl font-bold font-sans"><Sparkles className="h-6 w-6" /> OpenAI Tech</div>
+             <div className="flex items-center gap-2 text-2xl font-bold font-mono tracking-tighter"><BarChart3 className="h-8 w-8" /> M.I.T.</div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            {[
+              { name: "James L.", desc: "Med student", comment: "NeuroCards streamlines this process unlike anything else out there. It allows you to study while facilitating memorization without breaking flow. It's a priceless superpower." },
+              { name: "Danny G.", desc: "CS student", comment: "This is like a hardcore brain hack, except when you get hopelessly addicted to it your life is more organized and you're demonstrably smarter." },
+              { name: "Savannah F.", desc: "Bio undergrad", comment: "NeuroCards has quickly become one of my favorite products of all time. Super satisfying to run through flashcards instead of dreading them. Works like magic 🪄" }
+            ].map((t, i) => (
+              <motion.div key={i} variants={fadeUp} initial="initial" whileInView="whileInView" transition={{ delay: i * 0.1 }} className="bg-white border text-left border-slate-100 shadow-sm p-6 rounded-2xl hover:shadow-md transition">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-12 w-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-400">
+                     {t.name[0]}
+                  </div>
+                  <div>
+                    <h4 className="font-bold">{t.name}</h4>
+                    <p className="text-xs text-muted-foreground">{t.desc}</p>
+                  </div>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">{t.comment}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+      </main>
+      
       {/* Footer */}
-      <footer className="border-t border-border py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-md bg-gradient-to-br from-chart-1 to-chart-2 flex items-center justify-center">
-              <Zap className="h-3 w-3 text-white" />
+      <footer className="border-t border-slate-200 mt-20 pt-16 pb-8 bg-[#fcfcfc]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 mb-16">
+            <div className="col-span-2">
+              <div className="flex items-center gap-2 mb-4">
+                 <Zap className="h-6 w-6 text-chart-5" />
+                 <span className="font-bold text-2xl tracking-tight">NeuroCards</span>
+              </div>
+              <p className="text-slate-500 text-sm max-w-sm mb-6 leading-relaxed">
+                A college project designed to transform the way students study. Upload PDFs, generate AI flashcards, and master your subjects with minimal effort.
+              </p>
+              <div className="flex gap-4 text-slate-400">
+                 {/* GitHub Link mapping for the project */}
+                 <a href="https://github.com/PriyanshuPandey21/NeuroCards" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-slate-300 hover:border-chart-5 hover:text-chart-5 hover:bg-chart-5/5 transition flex items-center justify-center font-bold text-xs">GH</a>
+              </div>
             </div>
-            <span className="text-sm font-semibold">NeuroCards ai</span>
+            
+            <div>
+              <h4 className="font-bold text-slate-400 mb-4 tracking-wider text-sm">PROJECT</h4>
+              <ul className="space-y-3 text-sm font-semibold text-slate-700">
+                <li><Link href="#features" className="hover:text-chart-5 transition-colors">Features Overview</Link></li>
+                <li><Link href="/login" className="hover:text-chart-5 transition-colors">Launch App</Link></li>
+                <li><Link href="#testimonials" className="hover:text-chart-5 transition-colors">Testimonials</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-slate-400 mb-4 tracking-wider text-sm">DEVELOPER</h4>
+              <ul className="space-y-3 text-sm font-semibold text-slate-700">
+                <li><a href="https://github.com/PriyanshuPandey21" target="_blank" rel="noopener noreferrer" className="hover:text-chart-5 transition-colors">GitHub Profile</a></li>
+                <li><a href="https://github.com/PriyanshuPandey21/NeuroCards" target="_blank" rel="noopener noreferrer" className="hover:text-chart-5 transition-colors">Repository</a></li>
+              </ul>
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} NeuroCards ai. Built with ❤️ for learners.
-          </p>
+          
+          <div className="border-t border-slate-200 pt-8 flex text-center flex-col items-center justify-center text-sm font-semibold text-slate-400">
+             <span>© {new Date().getFullYear()} NeuroCards. A college project.</span>
+          </div>
         </div>
       </footer>
+
     </div>
   );
 }
