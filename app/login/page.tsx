@@ -12,8 +12,8 @@ import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("demo@gmail.com");
+  const [password, setPassword] = useState("12345678");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -129,9 +129,12 @@ export default function LoginPage() {
               </Button>
             </form>
 
-            <p className="text-xs text-muted-foreground text-center mt-6">
-              New user? Just enter any email and password — an account will be created automatically.
-            </p>
+            <div className="mt-6 flex flex-col items-center justify-center p-3 bg-slate-50 border border-slate-100 rounded-lg text-center">
+               <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Interviewer Review</span>
+               <p className="text-xs text-muted-foreground">
+                 Demo credentials pre-filled. Just click <strong>Sign In</strong> to skip registration. 
+               </p>
+            </div>
           </CardContent>
         </Card>
       </motion.div>
