@@ -252,6 +252,20 @@ body::-webkit-scrollbar, *::-webkit-scrollbar {
 .animate-float {
   animation: float 10s ease-in-out infinite;
 }
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(3deg); }
+}
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.08); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -260,3 +274,30 @@ body::-webkit-scrollbar, *::-webkit-scrollbar {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* 3D Card Flip Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Premium Glow Effects */
+.glow-primary {
+  box-shadow: 0 0 50px -10px rgba(99, 91, 255, 0.3);
+}
+.glow-cyan {
+  box-shadow: 0 0 50px -10px rgba(0, 212, 255, 0.3);
+}
+.glow-purple {
+  box-shadow: 0 0 50px -10px rgba(143, 0, 255, 0.3);
+}
+
